@@ -38,7 +38,9 @@ const ambientLight = new AmbientLight(0xffffff);
 scene.add(pointLight, ambientLight);
 
 // Background
-const bgTexture = new TextureLoader().load('images/background.jpg');
+//const bgTexture = new TextureLoader().load('images/background.jpg');
+const bgTexture = new TextureLoader()
+    .load('https://images.pexels.com/photos/7130544/pexels-photo-7130544.jpeg?auto=compress&cs=tinysrgb&w=400');
 scene.background = bgTexture;
 
 function moveCamera() {
