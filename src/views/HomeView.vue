@@ -1,18 +1,21 @@
 <script setup>
-import * as THREE from 'three';
+import {
+    Scene, PerspectiveCamera, WebGLRenderer, TorusKnotGeometry, MeshStandardMaterial, Mesh, PointLight,
+    AmbientLight, TextureLoader
+} from 'three';
 import { ref, onMounted } from 'vue';
 
 // Setup
 const background = ref(null);
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const scene = new Scene();
+const camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 let renderer;
 
 camera.position.setZ(30);
 camera.position.setX(-3);
 
 onMounted(() => {
-    renderer = new THREE.WebGLRenderer({
+    renderer = new WebGLRenderer({
         canvas: background.value
     });
 
@@ -22,20 +25,20 @@ onMounted(() => {
 })
 
 // Create Torus
-const geometry = new THREE.TorusKnotGeometry(9.025, 2.7027, 300, 20, 2);
-const material = new THREE.MeshStandardMaterial({ color: 0x96d4f3 });
-const torusKnot = new THREE.Mesh(geometry, material)
+const geometry = new TorusKnotGeometry(9.025, 2.7027, 300, 20, 2);
+const material = new MeshStandardMaterial({ color: 0x96d4f3 });
+const torusKnot = new Mesh(geometry, material)
 scene.add(torusKnot);
 
 // Lights
-const pointLight = new THREE.PointLight(0xffffff);
+const pointLight = new PointLight(0xffffff);
 pointLight.position.set(5, 5, 5);
 
-const ambientLight = new THREE.AmbientLight(0xffffff);
+const ambientLight = new AmbientLight(0xffffff);
 scene.add(pointLight, ambientLight);
 
 // Background
-const bgTexture = new THREE.TextureLoader().load('images/background.jpg');
+const bgTexture = new TextureLoader().load('images/background.jpg');
 scene.background = bgTexture;
 
 function moveCamera() {
